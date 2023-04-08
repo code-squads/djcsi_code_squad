@@ -28,13 +28,14 @@ router.post('/api/newPerson', async (req, res) => {
   if (missingFields.length > 0) {
     return res.status(400).json({ error: `Missing mandatory fields: ${missingFields.join(', ')}` });
   }
-
   const person = new Person(req.body);
+  console.log("New person", person);
 
   try {
     const savedPerson = await person.save();
     res.json({ message: "New person created successfully", id: savedPerson._id });
   } catch (err) {
+    console.log("Err creating person", err);
     res.status(500).json({ message: err.message });
   }
 });

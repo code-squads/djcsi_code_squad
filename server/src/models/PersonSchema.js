@@ -36,6 +36,9 @@ const personSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  aadhar_image_url: {
+    type: String,
+  },
   verified: {
     type: Boolean,
     default: false,

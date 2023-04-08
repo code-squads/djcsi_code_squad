@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export const OWNER_SCHEMA_ID = "owners"
+import { PERSON_SCHEMA_ID } from './PersonSchema.js'
 
 const ownerSchema = new mongoose.Schema({
   restaurant_name: {
@@ -28,19 +29,19 @@ const ownerSchema = new mongoose.Schema({
   recent_verifications: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Person',
+      ref: PERSON_SCHEMA_ID,
     },
   ],
   my_reported: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Person',
+      ref: PERSON_SCHEMA_ID,
     },
   ],
   my_recommended: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Person',
+      ref: PERSON_SCHEMA_ID,
     },
   ],
 });

@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import Loader from "../components/loader";
-import { testPeople } from "../constants/testPeople";
+import { batch2 } from "../constants/testPeople";
 import { SERVER_URL } from "../constants/config";
 
 
@@ -17,7 +17,7 @@ const Test = () => {
   }
 
   async function setup(){
-    for(const person of testPeople){
+    for(const person of batch2){
       const params = {
         first_name: person.first_name,
         middle_name: person.middle_name,

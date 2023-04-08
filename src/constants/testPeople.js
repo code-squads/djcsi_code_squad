@@ -196,7 +196,7 @@ export const testPeople = [
 ];
 
 
-const batch2=[
+export const batch2 = [
   {
     first_name: "Rajesh",
     middle_name: "Kishore",
@@ -206,9 +206,10 @@ const batch2=[
     gender: "Male",
     phone_number: "9654321078",
     email: "rajesh.rao@yahoo.com",
-    aadhar_number: "1234 5678 9012",
+    aadhar_number: "1234 5678 9522",
     address: "4th Floor, Koregaon Park, Pune",
     // pan_number: "PQRST7890A",
+    verified: true,
   },
   {
     first_name: "Anjali",
@@ -219,9 +220,10 @@ const batch2=[
     gender: "Female",
     phone_number: "9876543102",
     email: "anjali.patil@hotmail.com",
-    aadhar_number: "2345 6789 0123",
+    aadhar_number: "2345 6789 7123",
     address: "10th Floor, Pimpri, Pune",
     // pan_number: "QRSTU1234B",
+    verified: true,
   },
   {
     first_name: "Rohan",
@@ -232,9 +234,10 @@ const batch2=[
     gender: "Male",
     phone_number: "8765432101",
     email: "rohan.thakur@gmail.com",
-    aadhar_number: "3456 7890 1234",
+    aadhar_number: "3456 7890 1724",
     address: "7th Floor, Khar West, Mumbai",
     // pan_number: "RSTUV2345C",
+    verified: true,
   },
   {
     first_name: "Neha",
@@ -245,9 +248,10 @@ const batch2=[
     gender: "Female",
     phone_number: "7654321098",
     email: "neha.gokhale@yahoo.com",
-    aadhar_number: "4567 8901 2345",
+    aadhar_number: "4597 2901 2345",
     address: "13th Floor, Mulund West, Mumbai",
     // pan_number: "STUVW3456D",
+    verified: true,
   },
   {
     first_name: "Aakash",
@@ -258,10 +262,15 @@ const batch2=[
     gender: "Male",
     phone_number: "6543210987",
     email: "aakash.nair@hotmail.com",
-    aadhar_number: "5678 9012 3456",
+    aadhar_number: "5678 9012 8456",
     address: "5th Floor, Hinjewadi, Pune",
     // pan_number: "TUVWX4567E",
+    verified: false,
   },
+
+];
+
+export const batch3 = [
   {
     first_name: "Tina",
     middle_name: "Nikhil",
@@ -297,7 +306,7 @@ const batch2=[
     gender: "Female",
     phone_number: "8765432109",
     email: "simran.patil@hotmail.com",
-    aadhar_number: "5678 9012 3456",
+    aadhar_number: "5678 9012 7456",
     address: "11th Floor, Koregaon Park, Pune",
     // pan_number: "RSTUV7890U",
   },

@@ -39,11 +39,11 @@ export const AuthProvider = ({ children }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          console.log("Verified token:", data);
+          console.log("Verified token");
           setIsLoggedIn(true);
           setProfile(data.profile);
         } else {
-          console.log("Invalid token:", data);
+          console.log("Invalid token", data);
           localStorage.removeItem("token");
         }
       })
