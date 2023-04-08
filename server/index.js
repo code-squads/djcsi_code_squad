@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== "production") {
 const { MONGODB_SRV_STRING, PORT } = require("./constants/config");
 const newEntity = require('./routes/newEntity');
 const auth = require('./routes/auth');
+const sms = require('./routes/sms');
 
 // Setting the MongoDB
 mongoose.set('strictQuery', true);
@@ -35,7 +36,7 @@ app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
 
 
 // Preparing routers
-app.use(newEntity, auth);
+app.use(newEntity, auth, sms);
 
 
 

@@ -2,10 +2,11 @@ import { AppContext } from '@/context/appContext'
 import { Button } from 'flowbite-react'
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState } from 'react'
+import { useAuth, withoutAuthenticatedRoute } from '../context/AuthContext'
 
-const login = () => {
+const Login = () => {
     const router = useRouter()
-
+    const { login } = useAuth();
     const appContext = useContext(AppContext)
     const [state, setState] = useState(appContext.state)
 
@@ -15,9 +16,14 @@ const login = () => {
 
     const loginHandler = (event) => {
         event.preventDefault()
-        // console.log(event.target.first_name.value)
-        // console.log(event.target.last_name.value)
-        // console.log(event.target.gender.value)
+        console.log("Login with");
+        const phone = event.target.phone.value;
+        const password = event.target.password.value;
+        console.log("Login with params", phone, password);
+        login(phone, password)
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     return (
@@ -80,4 +86,4 @@ const login = () => {
     )
 }
 
-export default login
+export default withoutAuthenticatedRoute(Login);

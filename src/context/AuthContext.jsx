@@ -4,6 +4,9 @@ import { SERVER_URL } from "../constants/config";
 import { ROUTES } from "../constants/routes";
 import Loader from "../components/loader";
 import { useRouter } from "next/router";
+import { resolve } from "styled-jsx/css";
+import { toast } from "react-toastify";
+import { ScaleLoader } from "react-spinners";
 
 const AuthContext = createContext();
 
@@ -50,28 +53,40 @@ export const AuthProvider = ({ children }) => {
 
   const login = (phone, password) => {
     setIsProcessingLogin(true);
-    // Make an API call to login and get a JWT token
-    fetch(`${SERVER_URL}/api/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ phone, password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          console.log("Logged in !");
-          localStorage.setItem("token", data.token);
-          setIsProcessingLogin(false);
-          setIsLoggedIn(true);
-          setProfile(data.profile);
-        }
+    return new Promise((resolve, reject) => {
+      // Make an API call to login and get a JWT token
+      fetch(`${SERVER_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone, password }),
       })
-      .catch((error) => {
-        console.error(error)
-        setIsProcessingLogin(false);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.success) {
+            console.log("Logged in !");
+            localStorage.setItem("token", data.token);
+            toast.success("Logged in !");
+            setIsProcessingLogin(false);
+            setIsLoggedIn(true);
+            setProfile(data.profile);
+            resolve(data.profile);
+          } else {
+            toast.error("Invalid credentials !");
+            setIsProcessingLogin(false);
+            setIsLoggedIn(false);
+            reject(false);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          toast.error("Some error logging you in !");
+          setIsProcessingLogin(false);
+          reject(error);
+        });
+    });
   };
 
   const logout = () => {
@@ -104,34 +119,51 @@ export const useAuth = () => {
   return context;
 };
 
-
 const AuthenticatedRoute = (props) => {
   const { isLoggedIn, isProcessingLogin } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if(isProcessingLogin)
-      return;
-    if(!isLoggedIn)
-      router.push(ROUTES.LOGIN);
-  }, [isLoggedIn, isProcessingLogin])
-  
-  if(isProcessingLogin || !isLoggedIn){
-    return <Loader />
+    if (isProcessingLogin) return;
+    if (!isLoggedIn) router.push(ROUTES.LOGIN);
+  }, [isLoggedIn, isProcessingLogin]);
+
+  if (isProcessingLogin || !isLoggedIn) {
+    // return <Loader />;
+    return <ScaleLoader className="m-auto" color="#3670FF"/>
   }
+  return <>{props.children}</>;
+};
+const OnlyUnAuthenticatedRoute = (props) => {
+  const { isLoggedIn, isProcessingLogin } = useAuth();
+  const router = useRouter();
 
-  return (
-    <>
-      { props.children }
-    </>
-  )
-}
+  useEffect(() => {
+    if (isProcessingLogin) return;
+    if (isLoggedIn) router.push(ROUTES.DASHBOARD);
+  }, [isLoggedIn, isProcessingLogin]);
 
-export function withAuthenticatedRoute(WrappedComponent){
+  if (isProcessingLogin || isLoggedIn) {
+    // return <Loader />;
+    return <ScaleLoader className="m-auto" color="#3670FF"/>
+  }
+  return <>{props.children}</>;
+};
+
+export function withAuthenticatedRoute(WrappedComponent) {
   const HOC = (props) => (
     <AuthenticatedRoute>
       <WrappedComponent {...props} />
     </AuthenticatedRoute>
-  )
+  );
+  return HOC;
+}
+
+export function withoutAuthenticatedRoute(WrappedComponent) {
+  const HOC = (props) => (
+    <OnlyUnAuthenticatedRoute>
+      <WrappedComponent {...props} />
+    </OnlyUnAuthenticatedRoute>
+  );
   return HOC;
 }
