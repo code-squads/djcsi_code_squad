@@ -1,4 +1,5 @@
 import EmployeeVerificationForm from '@/components/employeeVerificationForm'
+import ImageVerificationSingleEmployee from '@/components/imageVerificationSingleEmployee'
 import OTPVerificationSingleEmployee from '@/components/otpVerificationSingleEmployee'
 import React, { useState } from 'react'
 
@@ -14,6 +15,7 @@ const SingleEmployee = () => {
 
     const verifyOTPHandler = () => {
         console.log(otp)
+        
         setStage('verifyImage')
       }
 
@@ -103,6 +105,7 @@ const SingleEmployee = () => {
         <div className='w-[60%] mx-auto'>
             {stage == 'details' && <EmployeeVerificationForm onProceedHandler={onProceedHandler}/>}
             {stage == 'verifyOTP' && <OTPVerificationSingleEmployee otp={otp} setOtp={setOtp} verifyOTPHandler={verifyOTPHandler}/>}
+            {stage == 'verifyImage' && <ImageVerificationSingleEmployee/>}
         </div>
     </div>
   )
