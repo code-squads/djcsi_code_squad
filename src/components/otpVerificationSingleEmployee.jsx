@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import { Button } from 'flowbite-react'
 import OtpInput from 'react-otp-input';
 
-const OTPVerificationSingleEmployee = ({otp, setOtp, verifyOTPHandler}) => {
+const OTPVerificationSingleEmployee = ({otp, setOtp, verifyOTPHandler, mobileNumber}) => {
+
+  console.log(otp, setOtp, mobileNumber)
 
   return (
     <div className='flex flex-col mt-[40px]'>
       <div>
         <span className='text-[20px]'>We have sent you an OTP on</span><br/>
-        <span className='text-gray-600 dark:text-gray-200 mt-[10px]'>+91 9137357003</span>
+        <span className='text-gray-600 dark:text-gray-200 mt-[10px]'>+91 {mobileNumber}</span>
       </div>
 
       <div className='flex flex-col justify-center items-center'>
