@@ -6,6 +6,7 @@ const ReportEmployeeWithPhoto = () => {
   return (
     <div>
 <ImageUploader></ImageUploader>
+        reportEmployeeWithPhoto
     </div>
   )
 }
