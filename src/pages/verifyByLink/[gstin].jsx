@@ -6,7 +6,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
-const SingleEmployee = () => {
+const VerifyByLink = () => {
     const [stage, setStage] = useState('details') //details || verifyOTP || verifyImage
     const [employeeData, setEmployeeData] = useState({})
     // const [employeeData, setEmployeeData] = useState({name: 'rupesh', gender: 'male', phone: '9137357003'})
@@ -56,12 +56,12 @@ const SingleEmployee = () => {
       }
 
   return (
-    <div className='w-[70%] dark:text-white dark:bg-dark2 text-dark3'>
+    <div className='w-[100%] dark:text-white dark:bg-dark2 text-dark3'>
         <div className='flex flex-row items-center text-[26px] font-medium h-[70px] pl-[40px] border-b-[1px] dark:border-[#232830] border-[#DCE3EE] bg-'>
             Verify Employee
         </div>
 
-        <div className="flex flex-row w-[55%] mt-[20px] mx-auto items-center justify-between text-[14px] font-[12px]">
+        <div className="flex flex-row w-[40%] mt-[20px] mx-auto items-center justify-between text-[14px] font-[12px]">
           <div className="flex flex-row items-center text-blue-600 dark:text-blue-500">
             <svg
               aria-hidden="true"
@@ -138,7 +138,7 @@ const SingleEmployee = () => {
           </div>
         </div>
 
-        <div className='w-[60%] mx-auto'>
+        <div className='w-[50%] mx-auto'>
             {stage == 'details' && <EmployeeVerificationForm onProceedHandler={onProceedHandler}/>}
             {stage == 'verifyOTP' && <OTPVerificationSingleEmployee otp={otp} setOtp={setOtp} verifyOTPHandler={verifyOTPHandler} mobileNumber={mobileNumber}/>}
             {stage == 'verifyImage' && <ImageVerificationSingleEmployee/>}
@@ -147,4 +147,4 @@ const SingleEmployee = () => {
   )
 }
 
-export default SingleEmployee
+export default VerifyByLink
