@@ -83,7 +83,7 @@ function GenderChart() {
     labels: ["Male", "Female"],
     datasets: [
       {
-        label: "Poll",
+
         data: [genderCount.Male, genderCount.Female],
         backgroundColor: [
           "#36A2EB",
