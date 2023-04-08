@@ -1,3 +1,4 @@
+import TagList from "@/components/TagList"
 import Loader from "@/components/loader"
 import { AppContext } from "@/context/appContext"
 import { useContext, useEffect, useState } from "react"
@@ -17,15 +18,15 @@ const Landing = () => {
         }, 4000)
     })
 
-    if (isLoading) {
-        return (
-            <Loader/>
-        )
-    }
+    // if (isLoading) {
+    //     return (
+    //         <Loader/>
+    //     )
+    // }
 
     return (
         <div className={`w-full h-[calc(100vh-60px)] flex justify-center items-center ${darkMode && "text-white bg-dark2"}`}>
-            <h1>Landing Page</h1>
+            <TagList />
         </div>
     )
 }
