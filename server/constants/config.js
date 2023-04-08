@@ -1,5 +1,5 @@
 const config = {
-  PORT: process.env.PORT || 5000,
+  PORT: process.env.PORT || 5001,
   JWT_SECRET: process.env.JWT_SECRET || "mysecret",
   MONGODB_SRV_STRING: process.env.MONGODB_SRV_STRING || "gg",
 }
