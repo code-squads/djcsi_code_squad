@@ -43,8 +43,8 @@ const Login = () => {
       >
         {" "}
         <div className="text-[35px] mt-14 w-[100%] sm:w-[85%] md:w-[60%] lg:w-[55%] text-center text-[#666666] dark:text-white">
-          Simplify your HR verification process with{" "}
-          <span className="font-bold bg-gradient-to-r from-emerald-500 to-sky-400 bg-clip-text text-transparent">
+          Simplify your <span className="font-bold bg-gradient-to-r from-emerald-500 to-sky-400 bg-clip-text text-transparent"> HR verification </span> process with{" "}
+          <span className="font-bold  bg-gradient-to-r from-amber-600 to-yellow-300 bg-clip-text text-transparent">
             HrSpace
           </span>
         </div>
