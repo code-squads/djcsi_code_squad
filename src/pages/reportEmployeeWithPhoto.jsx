@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const ReportEmployeeWithPhoto = () => {
   return (
     <div>
@@ -8,4 +9,6 @@ const ReportEmployeeWithPhoto = () => {
   )
 }
 
-export default ReportEmployeeWithPhoto
+export default ReportEmployeeWithPhoto;
+
+

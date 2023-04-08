@@ -1,9 +1,11 @@
+import AppGrid from '@/components/AppGrid'
 import React from 'react'
+
 
 const ReportedEmployees = () => {
   return (
     <div>
-        ReportedEmployees
+      <AppGrid />
     </div>
   )
 }
