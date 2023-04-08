@@ -74,7 +74,7 @@ const personSchema = new mongoose.Schema({
   recommends: [
     {
       employer: {
-        type: String,
+        type: String, // gstin
         required: false,
       },
       message: {

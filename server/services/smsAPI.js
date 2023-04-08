@@ -11,7 +11,6 @@ console.log("Twilio params", {
 const twilioClient = require('twilio')(TWILIO_ACCOUNT_SID, AUTH_TOKEN);
 
 exports.sendOTP = (phone) => {
-    console.log("Hello")
     return new Promise((resolve, reject) => {
         twilioClient.verify.v2.services(SERVICE_ID)
             .verifications
@@ -23,7 +22,7 @@ exports.sendOTP = (phone) => {
 
 exports.verifyOTP = (phone, code) => {
     return new Promise((resolve, reject) => {
-        client.verify.v2.services(SERVICE_ID)
+        twilioClient.verify.v2.services(SERVICE_ID)
         .verificationChecks
         .create({to: phone, code: code})
         .then(resolve)
