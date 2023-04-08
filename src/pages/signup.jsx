@@ -1,5 +1,6 @@
 import OTPVerification from "@/components/otpVerification";
 import SignupForm from "@/components/signupForm";
+import Image from "next/image";
 import {
   withAuthenticatedRoute,
   withoutAuthenticatedRoute,
@@ -36,12 +37,12 @@ const Signup = () => {
     });
 
     setUserInfo({
-        restuarantName,
-        restuarantGSTIN,
-        address,
-        phoneNumber,
-        password,
-    })
+      restuarantName,
+      restuarantGSTIN,
+      address,
+      phoneNumber,
+      password,
+    });
     setStage("otpVerification");
   };
 
@@ -55,12 +56,31 @@ const Signup = () => {
     >
       {/* left container */}
       <div
-        className={`w-[55%] h-full box-border ${
+        className={`w-[55%] h-full flex flex-col items-center box-border ${
           state.darkMode && "text-white bg-dark2"
         }
                 sm:w-full sm:min-h-[calc(100vh-60px)]
             `}
-      ></div>
+      >
+        <div className="text-[35px] mt-14 w-[100%] sm:w-[85%] md:w-[60%] lg:w-[65%] text-center text-[#666666] dark:text-white">
+        Simplify the process of
+          {" "}
+          <span className="font-bold bg-gradient-to-r from-sky-400 to-emerald-500 bg-clip-text text-transparent">
+            {" "}
+            HR verification{" "}
+          </span>{" "}
+          with just a few clicks and {" "}
+          <span className="font-bold  bg-gradient-to-br from-indigo-600 to-sky-400 bg-clip-text text-transparent">
+          Save Time And Resources
+          </span>
+        </div>
+        <Image
+          src="/assets/SignUpIllustration.svg"
+          className=""
+          width={620}
+          height={620}
+        />
+      </div>
 
       {/* right container */}
       <div
