@@ -1,6 +1,6 @@
+import AppGrid from '@/components/AppGrid'
 import Verify from '@/ocr/Verify'
 import Head from 'next/head'
-
 
 export default function Home() {
   return (
@@ -13,11 +13,12 @@ export default function Home() {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/datepicker.min.js"/>
       </Head>
       <Verify />
+      <AppGrid />
       {/* <div> */}
         {/* Hello */}
         {/* <Navbar/>
         <Footer/> */}
       {/* </div> */}
-    </>
+      </>
   )
 }
