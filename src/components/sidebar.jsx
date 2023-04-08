@@ -9,6 +9,7 @@ const RoutesToShowSideBar = [
   "/csvUpload",
   "/verifyEmployeeWithPhoto",
   "/recentVerifications",
+  "/recentVerifications2",
   "/reportedEmployees",
   "/recomendedEmployees",
   "/reportEmployeeWithPhoto",

@@ -1,3 +1,4 @@
+import { Button } from "flowbite-react";
 import React from "react";
 
 const RecentVerifications = () => {
@@ -50,109 +51,54 @@ const RecentVerifications = () => {
   console.log(showModal);
 
   return (
-    <div>
-      <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Birth Date
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Gender
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Email
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Aadhar
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Verified
-              </th>
-              <th scope="col" className="px-6 py-3">
-                {/* Add Verified */}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {people.map((data) => {
-              return (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <td className="px-6 py-4">{data.birth}</td>
-                  <td className="px-6 py-4">{data.name}</td>
-                  <td className="px-6 py-4">{data.Gender}</td>
-                  <td className="px-6 py-4">{data.Email}</td>
-                  <td className="px-6 py-4">{data.Aadhar}</td>
-                  <td className="px-6 py-4">{data.Verified}</td>
-                  <button
-                    disabled={data.Verified === "true" ? false : true}
-                    onClick={() => setShowModal(true)}
-                    className="mt-2 text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                  >
-                    Add+
-                  </button>
-                  {showModal === true && (
-                    <>
-                      <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 md:inset-0 h-[calc(100%-1rem)] md:h-full">
-                        <div className="relative w-full h-full max-w-2xl md:h-auto">
-                          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                Note this message
-                              </h3>
-                              <button
-                                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                onClick={() => {
-                                  setShowModal(false);
-                                }}
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  className="w-5 h-5"
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    fill-rule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"
-                                  ></path>
-                                </svg>
-                              </button>
-                            </div>
-                            <div className="p-6 space-y-6">
-                              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                With less than a month to go before the European
-                                Union enacts new consumer privacy laws for its
-                                citizens, companies around the world are
-                                updating their terms of service agreements to
-                                comply.
-                              </p>  
-                              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                The European Union’s General Data Protection
-                                Regulation (G.D.P.R.) goes into effect on May 25
-                                and is meant to ensure a common set of data
-                                rights in the European Union. It requires
-                                organizations to notify users as soon as
-                                possible of high-risk data breaches that could
-                                personally affect them.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+    <div className='relative w-[70%] dark:text-white dark:bg-dark2 text-dark3'>
+      <div className='flex flex-row items-center text-[26px] font-medium h-[70px] pl-[40px] border-b-[1px] dark:border-[#232830] border-[#DCE3EE]'>
+          Recently Verified Employees
+      </div>
+
+      <div className="flex flex-col w-[95%]  mx-auto border-[1px] dark:border-[#232830] border-[#DCE3EE] border-collapse mt-[35px] rounded-t-[5px] cursor-pointer">
+          <div className="flex flex-row justify-between bg-[#F6F9FC] dark:bg-[#1F232D] border-b-[1px] border-[#DCE3EE] dark:border-[#232830] rounded-t-[5px] text-[14px] font-medium">
+            <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Name</div>
+            <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Gender</div>
+            <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">DOB</div>
+            <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Aadhaar</div>
+            <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Pan card</div>
+            <div className="flex flex-row justify-center items-center w-[20%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Verification Status</div>
+            <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px]">Option</div>
+          </div>
+
+          {people.map((p) => {
+            return (
+              <div className="flex flex-row justify-between text-[14px]"> 
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.name}</div>
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.Gender}</div>
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.birth}</div>
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.Aadhar}</div>
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">-</div>
+                <div className="flex flex-row justify-center items-center w-[20%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Verified == 'true' ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="green" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                  </svg>
+                  :
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="red" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  }
+                </div>
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Verified == 'true' ? 
+                    <Button className="py-[-2px]">Hire 
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 ml-[5px]">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    </Button>
+                  :
+                    <>-</>
+                }
+                </div>
+              </div>
+            )
+          })}
       </div>
     </div>
   );
