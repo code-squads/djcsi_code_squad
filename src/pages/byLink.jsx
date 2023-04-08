@@ -5,7 +5,9 @@ import React from 'react'
 
 const ByLink = () => {
   const { profile } = useAuth()
-  console.log(profile)
+  const gstinNum = profile !== null && profile.gstin;
+  const emailMsg = `https://localhost:3000/verifyByLink/${gstinNum}`;
+  
   return (
     <div className='w-[70%] dark:text-white dark:bg-dark2 text-dark3'>
         <div className='flex flex-col justify-center text-[26px] font-medium h-[80px] pl-[40px] border-b-[1px] dark:border-[#232830] border-[#DCE3EE]'>
@@ -20,7 +22,7 @@ const ByLink = () => {
             </svg>
           </div>
           <div className='flex flex-row items-center text-[16px] font-medium px-[20px] text-[#090D11] dark:text-[#D9D9D9]'>
-            https://localhost:3000/verifyByLink/{profile.gstin}
+            https://localhost:3000/verifyByLink/{gstinNum}
           </div>
           <Button className='ml-auto mr-[25px]'>
             Copy Link
@@ -33,7 +35,7 @@ const ByLink = () => {
             <div className='text-[12px]'>enter your friends' email address to send them link</div>
           </div>
           <div className='overflow-scroll'>
-            <TagList/>
+            <TagList emailMsg={emailMsg}/>
           </div>
         </div>
     </div>

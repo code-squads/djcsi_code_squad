@@ -1,7 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const { sendOTP, verifyOTP } = require("../services/smsAPI");
+const { sendOTP, verifyOTP, sendMail } = require("../services/smsAPI");
+const Email = require("../models/EmailSchema");
 
 // OTP routes
 router.post("/apis/sendOTP", (req, res) => {
@@ -16,11 +17,11 @@ router.post("/apis/sendOTP", (req, res) => {
       data,
     });
 
-    sendOTP(phone)
+  sendOTP(phone)
     .then(() => {
-        res.status(200).send({
-            message: `OTP sent to ${phone}`
-        })
+      res.status(200).send({
+        message: `OTP sent to ${phone}`,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -32,6 +33,9 @@ router.post("/apis/sendOTP", (req, res) => {
       });
     });
 });
+
+// sendGrid router
+router.post("/apis/sendEmail", sendMail);
 
 // Verify Endpoint
 router.post("/apis/verifyOTP", (req, res) => {
@@ -74,6 +78,5 @@ router.post("/apis/verifyOTP", (req, res) => {
       });
     });
 });
-
 
 module.exports = router;

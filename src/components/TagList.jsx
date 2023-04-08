@@ -1,7 +1,8 @@
 import { Button } from 'flowbite-react';
 import { useState } from 'react';
+import axios from 'axios'
 
-const TagList = () => {
+const TagList = ({emailMsg}) => {
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
@@ -13,6 +14,7 @@ const TagList = () => {
     if (e.key === 'Enter' && inputValue !== '') {
       setTags([...tags, inputValue]);
       setInputValue('');
+      console.log(tags);
     } else if (e.key === 'Backspace' && inputValue === '') {
       setTags(tags.slice(0, -1));
     }
@@ -22,9 +24,16 @@ const TagList = () => {
     setTags(tags.filter((_, index) => index !== tagIndex));
   };
 
+  const sendUrl = () => {
+    for (let i = 0; i < tags.length; i++){
+      axios.post('http://localhost:5001/apis/sendEmail', {emails: tags[i] , stringMsg: emailMsg }).then((resp) => {
+        console.log(resp.data);
+      })
+    }
+  }
+
   return (
     <div className="flex flex-col gap-2 w-[100%] px-[30px]">
-      
       <div className='flex flex-row gap-x-[10px] items-center py-[10px]'>
         <input
           type="text"
@@ -34,7 +43,7 @@ const TagList = () => {
           placeholder='Enter the input tag'
           className="block rounded-md text-gray-900 border-[1px] border-[#DCE3EE] dark:border-[#232830] flex-grow"
         />
-        <Button className='ml-auto'>Share</Button>
+        <Button className='ml-auto' onClick={() => sendUrl()}>Share</Button>
       </div>
 
       <div className='w-full h-auto flex flex-col flex-grow gap-y-[10px] pb-[20px]'>
