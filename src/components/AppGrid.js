@@ -1,5 +1,55 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
+
+function RenderDate(props) {
+  const { hasFocus, value } = props;
+  const buttonElement = React.useRef(null);
+  const rippleRef = React.useRef(null);
+  const flagColor = props.value;
+
+  React.useLayoutEffect(() => {
+    if (hasFocus) {
+      const input = buttonElement.current?.querySelector("input");
+      input?.focus();
+    } else if (rippleRef.current) {
+      // Only available in @mui/material v5.4.1 or later
+      rippleRef.current.stop({});
+    }
+  }, [hasFocus]);
+
+  return (
+    <>
+      {flagColor === "green" && (
+        <button
+          className="focus:outline-none text-white w-[8rem] bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+        >
+          Safe User
+        </button>
+      )}
+      {flagColor === "red" && (
+        <button 
+          className="focus:outline-none text-white w-[8rem] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+        >
+          Reported User
+        </button>
+      )}
+    </>
+  );
+}
+
+RenderDate.propTypes = {
+  /**
+   * If true, the cell is the active element.
+   */
+  hasFocus: PropTypes.bool.isRequired,
+  /**
+   * The cell value.
+   * If the column has `valueGetter`, use `params.row` to directly access the fields.
+   */
+  value: PropTypes.instanceOf(Date),
+};
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
@@ -22,7 +72,7 @@ const columns = [
   },
   { field: "Email", header: "Email", width: 250 },
   { field: "Aadhar", header: "Aadhar" },
-  { field: "Flag", header: "Flags" },
+  { field: "Flag", header: "Flags", renderCell: RenderDate, width: 200 },
 ];
 
 const people = [
@@ -33,7 +83,8 @@ const people = [
     Gender: "Male",
     Email: "vansh@gmail.com",
     Aadhar: 3310,
-    Flag: "flag",
+    // Message will come with reports.message for red flag and for green, it will be from recommends.
+    Flag: "red",
   },
   {
     id: 2,
@@ -42,7 +93,7 @@ const people = [
     Gender: "Male",
     Email: "vansh@gmail.com",
     Aadhar: 3310,
-    Flag: "flag",
+    Flag: "green",
   },
   {
     id: 3,
@@ -51,7 +102,7 @@ const people = [
     Gender: "Male",
     Email: "vansh@gmail.com",
     Aadhar: 3310,
-    Flag: "flag",
+    Flag: "red",
   },
   {
     id: 4,
@@ -60,7 +111,7 @@ const people = [
     Gender: "Male",
     Email: "vansh@gmail.com",
     Aadhar: 3310,
-    Flag: "flag",
+    Flag: "red",
   },
   {
     id: 5,
@@ -69,7 +120,7 @@ const people = [
     Gender: "Male",
     Email: "vansh@gmail.com",
     Aadhar: 3310,
-    Flag: "flag",
+    Flag: "green",
   },
 ];
 
@@ -79,20 +130,7 @@ export default function AppGrid() {
       style={{ width: "100%", backgroundColor: "white" }}
       className="h-[100vh]"
     >
-      <DataGrid
-        rows={people}
-        columns={columns}
-        // initialState={{
-        //   pagination: {
-        //     paginationModel: {
-        //       pageSize: 5,
-        //     },
-        //   },
-        // }}
-        // pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
+      <DataGrid rows={people} columns={columns} disableRowSelectionOnClick className="bg-[#394150]" style={{color : 'white'}} />
     </div>
   );
 }
