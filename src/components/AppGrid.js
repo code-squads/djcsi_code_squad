@@ -23,20 +23,16 @@ function RenderDate(props) {
     <>
       {flagColor === "red" && (
         <button
-          size="small"
-          style={{ marginLeft: 16 }}
-          className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          className="focus:outline-none text-white w-[8rem] bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         >
-          Open
+          Safe User
         </button>
       )}
       {flagColor === "green" && (
         <button 
-          size="small"
-          style={{ marginLeft: 16 }}
-          className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          className="focus:outline-none text-white w-[8rem] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         >
-          Open
+          Reported User
         </button>
       )}
     </>
@@ -76,7 +72,7 @@ const columns = [
   },
   { field: "Email", header: "Email", width: 250 },
   { field: "Aadhar", header: "Aadhar" },
-  { field: "Flag", header: "Flags", renderCell: RenderDate },
+  { field: "Flag", header: "Flags", renderCell: RenderDate, width: 200 },
 ];
 
 const people = [
@@ -134,7 +130,7 @@ export default function AppGrid() {
       style={{ width: "100%", backgroundColor: "white" }}
       className="h-[100vh]"
     >
-      <DataGrid rows={people} columns={columns} disableRowSelectionOnClick />
+      <DataGrid rows={people} columns={columns} disableRowSelectionOnClick className="bg-[#394150]" style={{color : 'white'}} />
     </div>
   );
 }

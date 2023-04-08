@@ -5,7 +5,7 @@ import React from 'react'
 const ReportedEmployees = () => {
   return (
     <div>
-      <AppGrid  />
+      <AppGrid />
     </div>
   )
 }
