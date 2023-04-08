@@ -2,12 +2,36 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
+import Modal from "react-modal";
 
 function RenderDate(props) {
   const { hasFocus, value } = props;
   const buttonElement = React.useRef(null);
   const rippleRef = React.useRef(null);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
   const flagColor = props.value;
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      width: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      color: "white",
+      backgroundColor: "#394150",
+    },
+  };
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   React.useLayoutEffect(() => {
     if (hasFocus) {
@@ -22,18 +46,100 @@ function RenderDate(props) {
   return (
     <>
       {flagColor === "green" && (
-        <button
-          className="focus:outline-none text-white w-[8rem] bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        >
-          Safe User
-        </button>
+        <>
+          <button
+            className="focus:outline-none mt-2 text-white w-[8rem] bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            onClick={() => setIsOpen(true)}
+          >
+            Safe User
+          </button>
+          {modalIsOpen && (
+            <>
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+              >
+                <div className="flex justify-between">
+                  <div className="text-2xl">Safe User</div>
+                  <button onClick={closeModal} className="mx-6">
+                    {" "}
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div className="my-4">
+                  {" "}
+                  The European Union’s General Data Protection Regulation
+                  (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
+                  common set of data rights in the European Union. It requires
+                  organizations to notify users as soon as possible of high-risk
+                  data breaches that could personally affect them.
+                </div>
+              </Modal>
+            </>
+          )}
+        </>
       )}
       {flagColor === "red" && (
-        <button 
-          className="focus:outline-none text-white w-[8rem] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-        >
-          Reported User
-        </button>
+        <>
+          <button
+            onClick={() => setIsOpen(true)}
+            className="focus:outline-none mt-2 text-white w-[8rem] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          >
+            Reported User
+          </button>
+          {modalIsOpen && (
+            <>
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+              >
+                <div className="flex justify-between">
+                  <div className="text-2xl">Reported User</div>
+                  <button onClick={closeModal} className="mx-6">
+                    {" "}
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div className="my-4">
+                  {" "}
+                  The European Union’s General Data Protection Regulation
+                  (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
+                  common set of data rights in the European Union. It requires
+                  organizations to notify users as soon as possible of high-risk
+                  data breaches that could personally affect them.
+                </div>
+              </Modal>
+            </>
+          )}
+        </>
       )}
     </>
   );
@@ -130,7 +236,12 @@ export default function AppGrid() {
       style={{ width: "100%", backgroundColor: "white" }}
       className="h-[100vh]"
     >
-      <DataGrid rows={people} columns={columns} disableRowSelectionOnClick className="bg-[#394150]" style={{color : 'white'}} />
+      <DataGrid
+        rows={people}
+        columns={columns}
+        className="bg-[#394150]"
+        style={{ color: "white" }}
+      />
     </div>
   );
 }
