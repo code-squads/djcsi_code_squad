@@ -3,14 +3,17 @@ import DatePicker from "tailwind-datepicker-react"
 import { DatePickerOptions } from '../constants/Constants'
 import { Button } from "flowbite-react"
 import { useRouter } from 'next/router'
+import axios from 'axios'
 
-const EmployeeVerificationForm = (
-    createAccountHandler,
+const EmployeeVerificationForm = ({
+    onProceedHandler,
     stage,
     setStage,
-) => {
+}) => {
     const router = useRouter()
     const [show, setShow] = useState(false)
+    const [dob, setDob] = useState()
+
 	const handleClose = (state) => {
 		setShow(state)
 	}
@@ -26,15 +29,16 @@ const EmployeeVerificationForm = (
 
     const ocr = async (options) => {
         console.log("Inside ocr")
-        try {
-          const response = await axios.request(options);
-          console.log("Got response", response);
-          return response.data; 
-        } catch(err){
-          console.error(err);
-          return {"result":"1","subScans":[],"value":"HRE FRE\nGovernment of India\nAmitabh Rajendra Shah\nDOB: 03/02/1990\nMale\n1234 5678 9012\n\u00c5RT TEIR, \u00c0"};
-        }
-        // return {"result":"1","subScans":[],"value":"HRE FRE\nGovernment of India\nAmitabh Rajendra Shah\nDOB: 03/02/1990\nMale\n1234 5678 9012\n\u00c5RT TEIR, \u00c0"};
+        // try {
+        //   const response = await axios.request(options);
+        //   console.log("Got response", response);
+        //   return response.data; 
+        // } catch(err){
+        //   console.error(err);
+        //   return {"result":"1","subScans":[],"value":"HRE FRE\nGovernment of India\nAmitabh Rajendra Shah\nDOB: 03/02/1990\nMale\n1234 5678 9012\n\u00c5RT TEIR, \u00c0"};
+        // }
+        const data = {"result":"1","subScans":[],"value":"HRE FRE\nGovernment of India\nAmitabh Rajendra Shah\nDOB: 03/02/1990\nMale\n1234 5678 9012\n\u00c5RT TEIR, \u00c0"}
+        return data;
     }
 
     const handleFileInputChange = (event) => {
@@ -65,11 +69,31 @@ const EmployeeVerificationForm = (
             console.log(userName);
             console.log(DOB);
             console.log(aadhar);
+            document.getElementById('cardNumber').value = aadhar
           });
-      }
+    }
+
+    const onLocalProceedClickHandler = (event) => {
+        event.preventDefault();
+        const firstName = event.target.first_name.value
+        const lastName = event.target.last_name.value
+        const gender = event.target.gender.value
+        const cardNumber = event.target.cardNumber.value
+
+        const formData = {
+            firstName,
+            lastName,
+            dob,
+            gender,
+            cardNumber
+        }
+        onProceedHandler(formData)
+    }
+
+    console.log(dob)
 
     return (
-        <form className="mt-[40px]" action="">
+        <form className="mt-[40px]" onSubmit={onLocalProceedClickHandler}>
             <div className="flex flex-col gap-y-[25px]">
                 <div className="flex flex-row justify-between gap-x-[30px]">
                     <div className="w-[45%]">
@@ -87,7 +111,7 @@ const EmployeeVerificationForm = (
                     <div className="flex flex-col w-[45%]">
                         <label htmlFor="" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of Birth</label>
                         <div className="relative cursor-pointer">
-                        <DatePicker id="dob" options={DatePickerOptions} show={show} setShow={handleClose} />
+                        <DatePicker id="dob" options={DatePickerOptions} show={show} setShow={handleClose} onChange={setDob}/>
                         </div>
                     </div>
                     
@@ -108,8 +132,8 @@ const EmployeeVerificationForm = (
 
                 <div className="flex flex-row gap-x-[30px]">
                     <div className="w-[45%]">
-                        <label htmlFor="restuarant_address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                        <input type="address" id="restuarantAddress" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="L-12 Link Road, Andheri" required/>
+                        <label htmlFor="empolyee_address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                        <input type="address" id="employeeAddress" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="L-12 Link Road, Andheri" required/>
                     </div>
                 </div>
 
@@ -126,9 +150,9 @@ const EmployeeVerificationForm = (
 
                     <div className="flex flex-col w-[45%]">
                         <div className="flex items-center justify-center w-full">
-                            <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-[70px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-[70px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 <div className="flex flex-col items-center justify-center">
-                                    <svg aria-hidden="true" className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    <svg aria-hidden="true" className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                                     <p className="mb-2 text-[10px] text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                                     <p className="text-[8px] text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 </div>
@@ -249,7 +273,7 @@ const EmployeeVerificationForm = (
             </div>
             
             <div className="flex flex-row gap-x-[20px] mt-[45px] items-center justify-center">
-                    <Button className="sm:w-[200px] w-[45%]" type="button" onClick={verifyAadhaarPan}>
+                    <Button className="sm:w-[200px] w-[45%]" type="submit">
                         Proceed
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-[10px]">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
