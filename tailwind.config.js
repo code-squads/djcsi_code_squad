@@ -33,6 +33,10 @@ module.exports = {
         "width": "width"
       }
     },
+    transitionProperty: {
+      "height": "height",
+      "width": "width"
+    }
   },
   plugins: [
     require("flowbite/plugin")
