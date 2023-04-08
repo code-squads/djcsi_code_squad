@@ -1,15 +1,20 @@
 import OTPVerification from "@/components/otpVerification";
 import SignupForm from "@/components/signupForm";
+import axios from 'axios';
 import {
+  useAuth,
   withAuthenticatedRoute,
   withoutAuthenticatedRoute,
 } from "../context/AuthContext";
+import { SERVER_URL } from "../constants/config";
+import { toast } from "react-toastify";
 
 const { AppContext } = require("@/context/appContext");
 const { useContext, useState, useEffect } = require("react");
 
 const Signup = () => {
   const appContext = useContext(AppContext);
+  const { isProcessingLogin, signup } = useAuth();
   const [state, setState] = useState(appContext.state);
   const [stage, setStage] = useState("createAccount"); // createAccount || otpVerification || verified
   const [userInfo, setUserInfo] = useState(null);
@@ -36,14 +41,38 @@ const Signup = () => {
     });
 
     setUserInfo({
-        restuarantName,
-        restuarantGSTIN,
-        address,
-        phoneNumber,
-        password,
-    })
-    setStage("otpVerification");
+      restuarantName,
+      restuarantGSTIN,
+      address,
+      phoneNumber,
+      password,
+    });
+
+    axios
+      .post(`${SERVER_URL}/apis/sendOTP`, { phone: phoneNumber })
+      .then(() => setStage("otpVerification"))
+      .catch((err) => {
+        console.error(err);
+        toast.error("Some error sending OTP")
+      });
+    // setStage("otpVerification");
   };
+
+  function postVerification() {
+    console.log("Create DB account with fields", userInfo);
+    const { restuarantName, restuarantGSTIN, address, phoneNumber, password } =
+      userInfo;
+
+    signup(
+      restuarantName,
+      address,
+      phoneNumber,
+      restuarantGSTIN,
+      password
+    ).catch((err) => {
+      console.log("Err signing up", err);
+    });
+  }
 
   return (
     <div
@@ -159,7 +188,7 @@ const Signup = () => {
             setStage={setStage}
           />
         ) : (
-          <OTPVerification />
+          <OTPVerification phone={userInfo.phoneNumber} postVerification={postVerification} />
         )}
 
         {/* {stage == "otpVerification" && <OTPVerification/>} */}

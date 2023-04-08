@@ -1,19 +1,38 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { Button } from 'flowbite-react'
 import OtpInput from 'react-otp-input';
+import { toast } from 'react-toastify';
+import { SERVER_URL } from '../constants/config';
 
-const OTPVerification = () => {
+const OTPVerification = (props) => {
   const [otp, setOtp] = useState('');
 
   const verifyOTPHandler = () => {
-    console.log(otp)
+    console.log("Verify otp:", otp);
+    // props.postVerification();
+
+    axios
+      .post(`${SERVER_URL}/apis/verifyOTP`, { phone: props.phone, code: otp })
+      .then((res) => {
+        if(res.data.success){
+          toast.success("Verified OTP successfuly !");
+          props.postVerification();
+        } else {
+          toast.error("Invalid OTP !");
+        }
+      })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     toast.error("Some error verifying OTP");
+    //   });
   }
 
   return (
     <div className='flex flex-col mt-[40px]'>
       <div>
         <span className='text-[20px]'>We have sent you an OTP on</span><br/>
-        <span className='text-gray-600 dark:text-gray-200 mt-[10px]'>+91 9137357003</span>
+        <span className='text-gray-600 dark:text-gray-200 mt-[10px]'>+91 {props.phone}</span>
       </div>
 
       <div className='flex flex-col justify-center items-center'>

@@ -5,6 +5,7 @@ const { sendOTP, verifyOTP } = require("../services/smsAPI");
 
 // OTP routes
 router.post("/apis/sendOTP", (req, res) => {
+  console.log(req.body);
   const phone = `+91${req.body.phone}`;
 
   if (!phone)
@@ -28,7 +29,6 @@ router.post("/apis/sendOTP", (req, res) => {
         message: "Server error, contact administrator",
         phone,
         success: false,
-        err,
       });
     });
 });
@@ -38,7 +38,7 @@ router.post("/apis/verifyOTP", (req, res) => {
   const phone = `+91${req.body.phone}`;
   const code = req.body.code;
 
-  if (!phone || code.length != CODE_LENGTH)
+  if (!phone || !code.length)
     return res.status(400).send({
       message: "Invalid phone number or code :(",
       success: false,

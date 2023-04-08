@@ -14,12 +14,12 @@ const ownerSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   gstin: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   password: {
     type: String,

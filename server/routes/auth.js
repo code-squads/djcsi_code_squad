@@ -6,6 +6,21 @@ const jwt = require('jsonwebtoken');
 const { Owner } = require("../models/OwnerSchema");
 const { JWT_SECRET } = require('../constants/config');
 
+
+function prepareJWT(owner){
+  return jwt.sign(
+    {
+      _id: owner._id,
+      restaurant_name: owner.restaurant_name,
+      address: owner.address,
+      phone: owner.phone,
+      gstin: owner.gstin,
+    },
+    JWT_SECRET,
+    { expiresIn: '2d' }
+  );
+}
+
 router.post('/api/auth/signup', async (req, res) => {
   try {
     // Check for mandatory fields
@@ -19,12 +34,35 @@ router.post('/api/auth/signup', async (req, res) => {
     
     // Create new owner object
     const owner = new Owner(req.body);
+
+    console.log("New owner", owner);
     
     // Save owner to database
     const savedOwner = await owner.save();
-    
-    // Return success response with ID of new owner
-    res.status(201).json({ message: 'New owner created successfully', id: savedOwner._id });
+
+    // Prepare the JWT with the owner's fields
+    const token = prepareJWT(savedOwner);
+
+    // Send the JWT in a cookie
+    // res.cookie('jwt', token, {
+    //   // httpOnly: true,
+    //   maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
+    //   sameSite: 'lax',
+    // });
+
+    // Return a success response with the owner's fields
+    return res.status(201).json({
+      success: true,
+      message: "New owner created successfully",
+      profile: {
+        _id: savedOwner._id,
+        restaurant_name: savedOwner.restaurant_name,
+        address: savedOwner.address,
+        phone: savedOwner.phone,
+        gstin: savedOwner.gstin,
+      },
+      token,
+    });
   } catch (err) {
     // Handle errors
     console.error(err);
@@ -64,17 +102,7 @@ router.post('/api/auth/login', async (req, res) => {
     }
 
     // Prepare the JWT with the owner's fields
-    const token = jwt.sign(
-      {
-        _id: owner._id,
-        restaurant_name: owner.restaurant_name,
-        address: owner.address,
-        phone: owner.phone,
-        gstin: owner.gstin,
-      },
-      JWT_SECRET,
-      { expiresIn: '2d' }
-    );
+    const token = prepareJWT(owner);
 
     // Send the JWT in a cookie
     // res.cookie('jwt', token, {
