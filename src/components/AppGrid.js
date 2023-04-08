@@ -230,18 +230,24 @@ const people = [
   },
 ];
 
+const reportedUsers = people.map((data) => data).filter((data) => data.Flag === 'red');
+
+console.log(reportedUsers);
+
 export default function AppGrid() {
   return (
     <div
       style={{ width: "100%", backgroundColor: "white" }}
       className="h-[100vh]"
     >
-      <DataGrid
-        rows={people}
-        columns={columns}
-        className="bg-[#394150]"
-        style={{ color: "white" }}
-      />
+      {reportedUsers !== undefined && (
+        <DataGrid
+          rows={reportedUsers}
+          columns={columns}
+          className="bg-[#394150]"
+          style={{ color: "white" }}
+        />
+      )}
     </div>
   );
 }
