@@ -1,4 +1,4 @@
-export const people = [
+export const testPeople = [
   {
     first_name: "Amitabh",
     middle_name: "Rajendra",
@@ -78,8 +78,7 @@ export const people = [
     // pan_number: "EFGHI5678J",
     verified: true,
     current_employer: '07AAGXXXXX4N1Z1',
-    current_role: 'Receptionist',
-    recommends: [{ employer: '07AAGXXXXX4N1Z1', message: "Customer friendly" }],
+    current_role: 'Manager',
   },
   {
     first_name: "Kavya",
@@ -95,8 +94,7 @@ export const people = [
     // pan_number: "FGHIJ6789K",
     verified: true,
     past_employers: ['07AAGXXXXX4N1Z1'],
-    current_role: 'Assistant Chef',
-    reports: [{ flag: "" employer: '07AAGXXXXX4N1Z1', message: "Rude" }],
+    reports: [{ flag: "orange", employer: '07AAGXXXXX4N1Z1', message: "Rude" }],
   },
   {
     first_name: "Ravi",
@@ -110,6 +108,9 @@ export const people = [
     aadhar_number: "7890 1234 5678",
     address: "12th Floor, Powai, Mumbai",
     // pan_number: "KLMNO1234P",
+    verified: true,
+    past_employers: ['07AAGXXXXX4N1Z1'],
+    reports: [{ flag: "red", employer: '07AAGXXXXX4N1Z1', message: "Offensive" }],
   },
   {
     first_name: "Arun",
@@ -123,6 +124,10 @@ export const people = [
     aadhar_number: "8901 2345 6789",
     address: "2nd Floor, Magarpatta City, Pune",
     // pan_number: "LMNOP2345Q",
+    current_employer: '07AAGXXXXX4N1Z1',
+    current_role: 'Waiter',
+    past_employers: ['07AAGXXXXX4N1Z1'],
+    reports: [{ flag: "yellow", employer: '07AAGXXXXX4N1Z1', message: "Hospitality concern" }],
   },
   {
     first_name: "Neha",
@@ -136,6 +141,9 @@ export const people = [
     aadhar_number: "9012 3456 7890",
     address: "6th Floor, Andheri West, Mumbai",
     // pan_number: "MNOPQ3456R",
+    verified: true,
+    current_employer: '27AAAFB4177D1ZR',
+    current_role: 'Manager',
   },
   {
     first_name: "Vijay",
@@ -146,9 +154,12 @@ export const people = [
     gender: "Male",
     phone_number: "5432109876",
     email: "vijay.more@gmail.com",
-    aadhar_number: "0123 4567 8901",
+    aadhar_number: "0123 4567 8924",
     address: "9th Floor, Kothrud, Pune",
     // pan_number: "OPQRS4567T",
+    verified: true,
+    current_employer: '27AAAFB4177D1ZR',
+    current_role: 'Chef',
   },
   {
     first_name: "Aarti",
@@ -159,9 +170,12 @@ export const people = [
     gender: "Female",
     phone_number: "4321098765",
     email: "aarti.sawant@yahoo.com",
-    aadhar_number: "2345 6789 0123",
+    aadhar_number: "2345 6789 8123",
     address: "4th Floor, Malad East, Mumbai",
     // pan_number: "PQRST5678U",
+    verified: true,
+    current_employer: '27AAAFB4177D1ZR',
+    current_role: 'Asst. Chef',
   },
   {
     first_name: "Smita",
@@ -175,7 +189,14 @@ export const people = [
     aadhar_number: "0123 4567 8901",
     address: "9th Floor, Vashi, Mumbai",
     // pan_number: "OPQRST6789U",
+    verified: true,
+    past_employers: ['27AAAFB4177D1ZR'],
+    reports: [{ flag: "red", employer: '27AAAFB4177D1ZR', message: "Offensive behavior" }],
   },
+];
+
+
+const batch2=[
   {
     first_name: "Rajesh",
     middle_name: "Kishore",
@@ -321,5 +342,4 @@ export const people = [
   },
 ];
 
-console.log(people.length);
-
+// console.log(testPeople.length);
