@@ -149,6 +149,7 @@ const Landing = () => {
             width={540}
             height={540}
           />
+
         </div>
       </div>
     </div>
