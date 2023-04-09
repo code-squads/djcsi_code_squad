@@ -68,4 +68,11 @@ router.get('/api/pastEmployees', async (req, res) => {
   }
 });
 
+router.post('/api/hireEmployee', async (req, res) => {
+  const { id, role } = req.body;
+  console.log("Hire", id, role);
+  
+  return res.json({ success: true })
+})
+
 export default router;
