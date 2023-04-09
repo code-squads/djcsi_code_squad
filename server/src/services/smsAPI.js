@@ -1,9 +1,11 @@
+import sgMail from "@sendgrid/mail";
+import Email from "../models/EmailSchema.js";
+import twilio from 'twilio';
+
 const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
 const AUTH_TOKEN = process.env.AUTH_TOKEN;
 const SERVICE_ID = process.env.SERVICE_ID;
-import sgMail from "@sendgrid/mail";
-import Email from "../models/EmailSchema";
-import twilio from 'twilio';
+console.log();
 const twilioClient = twilio(TWILIO_ACCOUNT_SID, AUTH_TOKEN);
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -58,7 +60,8 @@ export const sendMail = async (req, res) => {
         .status(200)
         .json({ statusMessage: "Message sent!!", emails: ownerEmails.emails , text: ownerEmails.stringMsg });
     });
-  } catch {
+  } catch(err) {
+    console.log("Err", err);
     return res.json({ statusMessage: "Message not sent!!", emails: ownerEmails.emails });
   }
 };
