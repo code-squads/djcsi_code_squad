@@ -1,19 +1,57 @@
 import EmployeeVerificationForm from '@/components/employeeVerificationForm'
+import ImageVerificationSingleEmployee from '@/components/imageVerificationSingleEmployee'
 import OTPVerificationSingleEmployee from '@/components/otpVerificationSingleEmployee'
+import { SERVER_URL } from '@/constants/config'
+import axios from 'axios'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 const SingleEmployee = () => {
     const [stage, setStage] = useState('details') //details || verifyOTP || verifyImage
     const [employeeData, setEmployeeData] = useState({})
+    // const [employeeData, setEmployeeData] = useState({name: 'rupesh', gender: 'male', phone: '9137357003'})
     const [otp, setOtp] = useState('');
+    const [mobileNumber, setMobileNumber] = useState(null)
 
-    const onProceedHandler = (formData) => {
+    const onProceedHandler = async (formData) => {
         setEmployeeData(formData)
-        setStage('verifyOTP')
+        const mob = await getMobileNumberFromCardNumber(formData.cardNumber)
+        setMobileNumber(mob)
+        // sendOTP(mob)
+        sendOTP(9137357003)
+        // setStage('verifyOTP')
+    }
+
+    const getMobileNumberFromCardNumber = async (cardNumber) => {
+      // setMobileNumber(8383238282)
+      return 8383238282
+    }
+
+    const sendOTP = async (phoneNumber) => {
+      axios
+      .post(`${SERVER_URL}/apis/sendOTP`, { phone: phoneNumber })
+      .then(() => setStage("verifyOTP"))
+      .catch((err) => {
+        console.error(err);
+        toast.error("Some error sending OTP")
+      });
     }
 
     const verifyOTPHandler = () => {
         console.log(otp)
+
+        const phone = 9137357003
+        axios
+        .post(`${SERVER_URL}/apis/verifyOTP`, { phone: phone, code: otp })
+        .then((res) => {
+          if(res.data.success){
+            toast.success("Verified OTP successfuly !");
+            // props.postVerification();
+          } else {
+            toast.error("Invalid OTP !");
+          }
+        })
+        
         setStage('verifyImage')
       }
 
@@ -102,7 +140,8 @@ const SingleEmployee = () => {
 
         <div className='w-[60%] mx-auto'>
             {stage == 'details' && <EmployeeVerificationForm onProceedHandler={onProceedHandler}/>}
-            {stage == 'verifyOTP' && <OTPVerificationSingleEmployee otp={otp} setOtp={setOtp} verifyOTPHandler={verifyOTPHandler}/>}
+            {stage == 'verifyOTP' && <OTPVerificationSingleEmployee otp={otp} setOtp={setOtp} verifyOTPHandler={verifyOTPHandler} mobileNumber={mobileNumber}/>}
+            {stage == 'verifyImage' && <ImageVerificationSingleEmployee/>}
         </div>
     </div>
   )

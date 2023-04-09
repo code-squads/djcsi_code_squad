@@ -39,11 +39,11 @@ export const AuthProvider = ({ children }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          console.log("Verified token:", data);
+          console.log("Verified token");
           setIsLoggedIn(true);
           setProfile(data.profile);
         } else {
-          console.log("Invalid token:", data);
+          console.log("Invalid token", data);
           localStorage.removeItem("token");
         }
       })
@@ -89,6 +89,50 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const signup = (
+    restaurant_name,
+    address,
+    phone,
+    gstin,
+    password,
+  ) => {
+    setIsProcessingLogin(true);
+    return new Promise((resolve, reject) => {
+      // Make an API call to login and get a JWT token
+      fetch(`${SERVER_URL}/api/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ restaurant_name, address, phone, gstin, password }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.success) {
+            console.log("Signed up !");
+            localStorage.setItem("token", data.token);
+            toast.success("Signed up !");
+            setIsProcessingLogin(false);
+            setIsLoggedIn(true);
+            setProfile(data.profile);
+            resolve(data.profile);
+          } else {
+            toast.error("Invalid fields !");
+            setIsProcessingLogin(false);
+            setIsLoggedIn(false);
+            reject(false);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          toast.error("Some error logging you in !");
+          setIsProcessingLogin(false);
+          reject(error);
+        });
+    });
+  }
+
   const logout = () => {
     console.log("Logged out !");
     localStorage.removeItem("token");
@@ -103,6 +147,7 @@ export const AuthProvider = ({ children }) => {
         isProcessingLogin,
         profile,
         login,
+        signup,
         logout,
       }}
     >

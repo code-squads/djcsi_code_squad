@@ -9,6 +9,7 @@ const RoutesToShowSideBar = [
   "/csvUpload",
   "/verifyEmployeeWithPhoto",
   "/recentVerifications",
+  "/recentVerifications2",
   "/reportedEmployees",
   "/recomendedEmployees",
   "/reportEmployeeWithPhoto",
@@ -166,7 +167,7 @@ const SideBar = () => {
               </svg>
               By Link
             </div>
-            <div
+            {/* <div
               className={`flex flex-row gap-x-[10px] px-[10px] py-[5px] ${
                 currentRoute == "/csvUpload" &&
                 "bg-[#BED4F5] dark:bg-[#374151] rounded-md box-border"
@@ -190,7 +191,7 @@ const SideBar = () => {
                 />
               </svg>
               CSV Upload
-            </div>
+            </div> */}
             <div
               className={`flex flex-row gap-x-[10px] px-[10px] py-[5px] ${
                 currentRoute == "/verifyEmployeeWithPhoto" &&
