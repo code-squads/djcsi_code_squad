@@ -15,7 +15,6 @@ import newEntity from './src/routes/newEntity.js';
 import auth from './src/routes/auth.js';
 import employee from './src/routes/employee.js';
 import sms from './src/routes/sms.js';
-import face from './src/routes/face.js';
 
 // Setting the MongoDB
 mongoose.set('strictQuery', true);
@@ -40,7 +39,7 @@ app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
 
 
 // Preparing routers
-app.use(newEntity, auth, sms, employee, face);
+app.use(newEntity, auth, sms, employee);
 
 
 
