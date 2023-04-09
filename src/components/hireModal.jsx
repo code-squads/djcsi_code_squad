@@ -1,36 +1,68 @@
+import { Button } from 'flowbite-react'
 import React from 'react'
 
-const HireModal = () => {
+const HireModal = ({
+    showModal,
+    setShowModal,
+    setSelectedOption,
+    onConfirmClickHandler
+}) => {
+    // const [showModal, setShowModal] = useState(true)
+    // const [selectedOption, setSelectedOption] = useState()
+
   return (
-    <div>
-    <div id="medium-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
-        <div class="relative w-full h-full max-w-lg md:h-auto">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                        Default modal
-                    </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="medium-modal">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        <span class="sr-only">Close modal</span> 
-                    </button>
-                </div>
-                <div class="p-6 space-y-6">
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
-                    </p>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
-                    </p>
-                </div>
-                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="medium-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                    <button data-modal-hide="medium-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
-                </div>
+    (showModal ? <div className='fixed flex justify-center items-center w-full h-full top-0 left-0 z-50'>
+        {/* backdrop */}
+        <div className='absolute w-full h-full bg-slate-300 dark:bg-dark3 opacity-60' onClick={() => {setShowModal(false)}}>
+
+        </div>
+
+        {/* modal */}
+        <div className='flex flex-col absolute w-[500px] h-[400px] m-auto left-auto right-auto top-auto bg-white rounded-lg shadow dark:bg-gray-800 font-inter'>
+            <div className='flex items-center h-[60px] px-[30px] w-full dark:text-white bg-[#F6F9FC] dark:bg-dark2 text-dark3 border-b-[1px] dark:border-[#232830] border-[#DCE3EE] text-[18px] font-medium rounded-t-lg'>
+                Hire Employee
+            </div>
+            <div className='px-[30px] py-[10px]'>
+                <div>Name: Rupesh Raut</div>
+                <div>Aadhaar number: DJSKS839390</div>
+            <h3 class="mt-[10px] mb-[2px] font-semibold text-gray-900 dark:text-white">Job Role: </h3>
+            <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                        <input id="list-radio-license" type="radio" value="Head Chief" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" onClick={(e) => {setSelectedOption(e.target.value)}}/>
+                        <label for="list-radio-license" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Head Chief</label>
+                    </div>
+                </li>
+                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                        <input id="list-radio-id" type="radio" value="Kitchen Helper" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" onClick={(e) => {setSelectedOption(e.target.value)}}/>
+                        <label for="list-radio-id" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kitchen Helper</label>
+                    </div>
+                </li>
+                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                        <input id="list-radio-millitary" type="radio" value="Receptionist" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" onClick={(e) => {setSelectedOption(e.target.value)}}/>
+                        <label for="list-radio-millitary" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Receptionist</label>
+                    </div>
+                </li>
+                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                        <input id="list-radio-passport" type="radio" value="Waiter" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" onClick={(e) => {setSelectedOption(e.target.value)}}/>
+                        <label for="list-radio-passport" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Waiter</label>
+                    </div>
+                </li>
+            </ul>
+            </div>
+
+            <div className='flex flex-row gap-x-[20px] items-center h-[65px] px-[30px] w-full dark:text-white text-dark3 border-b-[1px] dark:border-[#232830] border-t-[1px] border-[#DCE3EE] text-[18px] font-medium rounded-b-lg'>
+                <button className='text-[14px] ml-auto' onClick={() => {setShowModal(false)}}>Cancel</button>
+                <Button onClick={onConfirmClickHandler}>Confirm</Button>
             </div>
         </div>
     </div>
-    </div>
+    :
+        <></>
+    )
   )
 }
 
