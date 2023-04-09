@@ -1,15 +1,7 @@
-<<<<<<< HEAD:server/routes/sms.js
-const express = require("express");
-const router = express.Router();
-
-const { sendOTP, verifyOTP, sendMail } = require("../services/smsAPI");
-const Email = require("../models/EmailSchema");
-=======
 import express from 'express';
 const router = express.Router();
 
-import { sendOTP, verifyOTP } from "../services/smsAPI.js";
->>>>>>> ee1f1288657640caca736f3d99baca0b1767621b:server/src/routes/sms.js
+import { sendOTP, verifyOTP, sendMail } from "../services/smsAPI.js";
 
 // OTP routes
 router.post("/apis/sendOTP", (req, res) => {
@@ -86,9 +78,4 @@ router.post("/apis/verifyOTP", (req, res) => {
     });
 });
 
-<<<<<<< HEAD:server/routes/sms.js
-module.exports = router;
-=======
-
 export default router;
->>>>>>> ee1f1288657640caca736f3d99baca0b1767621b:server/src/routes/sms.js
