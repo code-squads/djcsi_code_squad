@@ -28,6 +28,8 @@ const Dashboard = () => {
     // }, [router])
 
     useEffect(() => {
+      if(!profile)
+        return;
       getEmployeeData()
     }, [refreshIndicator])
 

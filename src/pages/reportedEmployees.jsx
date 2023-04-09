@@ -1,5 +1,5 @@
 import AppGrid, { RedAppGrid } from '@/components/AppGrid'
-import { getEmployees } from '@/apis/employees';
+import { getEmployees, getReportedEmployees } from '@/apis/employees';
 import FlagInfoModal from '@/components/flagInfoModal';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from 'flowbite-react'
@@ -17,7 +17,9 @@ const ReportedEmployees = () => {
   }, [profile])
 
   const getEmployeeData = async () => {
-    const data  = await getEmployees(profile?.gstin)
+    if(!profile)
+      return;
+    const data  = await getReportedEmployees(profile.gstin)
     setEmployees(data)
   }
 
