@@ -38,23 +38,23 @@ const Landing = () => {
 
   return (
     <div className="flex items-center flex-col">
-      <div className="mx-[5%] my-[1%] text-[40px] sm:text-[60px] md:text-[70px] lg:text-[80px] text-center text-[#666666] dark:text-white">
+      <div className="mx-[5%] my-[1%] text-[40px] sm:text-[60px] md:text-[70px] lg:text-[75px] w-[80%] text-center text-[#666666] dark:text-white">
         <span className="font-bold bg-gradient-to-r from-sky-400 to-emerald-500 bg-clip-text text-transparent ">
-          Code
+        Effortlessly 
         </span>{" "}
-        As fast As You Think.
+        Verify Employee Information
       </div>
-      <div className="text-[25px] w-[80%] sm:w-[70%] md:w-[50%] lg:w-[40%] text-center text-[#666666] dark:text-white">
+      <div className="text-[25px] w-[80%] sm:w-[70%] md:w-[50%] lg:w-[37%] text-center text-[#666666] dark:text-white">
         <span className="font-bold bg-gradient-to-br from-indigo-600 to-sky-400 bg-clip-text text-transparent">
-          BLACKBOX
+          HrSpace
         </span>{" "}
-        is your{" "}
+        is here to {" "}
         <span className="font-bold bg-gradient-to-r from-emerald-500 to-sky-400 bg-clip-text text-transparent">
-          AI-Powered Coding Assistant
+        Streamline HR Verification and Reduce Risk
         </span>{" "}
         so you can{" "}
         <span className="font-bold bg-gradient-to-r from-amber-600 to-yellow-300 bg-clip-text text-transparent">
-          Code 10X Faster and Better
+          Save Time and Resources
         </span>
       </div>
       <div className="">
@@ -81,13 +81,12 @@ const Landing = () => {
         <div className="xl:w-[40%] lg:w-[45%] md:w-[75%] md:mb-10 sm:mb-6 sm:w-[100%]">
           <div className="mt-[10%] lg:text-[50px] md:text-[45px] sm:text-[30px] ">
             <span className="font-bold bg-gradient-to-b from-amber-600 to-yellow-300 bg-clip-text text-transparent">
-              Code Autocomplete
+              Multiple Verification
             </span>{" "}
-            made easy
+
           </div>
-          <div className="xl:text-[20px] lg:text-[17px] md:text-[15px] sm:text-[12px]">
-            Code autocomplete in 20+ programming languages including Python,
-            JavaScript, TypeScript, Go, and Ruby
+          <div className="xl:text-[20px] font-thin lg:text-[17px] md:text-[15px] sm:text-[12px]">
+           Employee as well as owners have to go through multi level authentication for better security.
           </div>
         </div>
 
@@ -95,7 +94,7 @@ const Landing = () => {
           <Image
             data-aos="fade-zoom-in"
             className="rounded-2xl drop-shadow-[0_0px_35px_rgba(85,99,238,0.7)] dark:drop-shadow-[0_0px_35px_rgba(85,99,238,0.3)]"
-            src="/assets/Defi1.png"
+            src="/assets/multi.jpg"
             alt="Hero Img"
             width={540}
             height={540}
@@ -109,7 +108,7 @@ const Landing = () => {
           <Image
             data-aos="fade-zoom-in"
             className="rounded-2xl order-last md:order-last lg:order-first xl:order-first drop-shadow-[0_0px_35px_rgba(85,99,238,0.7)] dark:drop-shadow-[0_0px_35px_rgba(85,99,238,0.3)]"
-            src="/assets/Defi1.png"
+            src="/assets/verf.jpg"
             alt="Hero Img"
             width={540}
             height={540}
@@ -118,13 +117,11 @@ const Landing = () => {
         <div className="xl:w-[40%] lg:w-[45%] md:w-[75%] md:mb-10 sm:mb-6 sm:w-[100%] order-first md:order-first lg:order-last xl:order-last">
           <div className="mt-[10%] lg:text-[50px] md:text-[45px] sm:text-[30px]">
             <span className="font-bold bg-gradient-to-br from-indigo-600 to-sky-400 bg-clip-text text-transparent">
-              Code Autocomplete
+              Image verification
             </span>{" "}
-            made easy
           </div>
-          <div className="xl:text-[20px] lg:text-[17px] md:text-[15px] sm:text-[12px]">
-            Code autocomplete in 20+ programming languages including Python,
-            JavaScript, TypeScript, Go, and Ruby
+          <div className="xl:text-[20px] font-thin lg:text-[17px] md:text-[15px] sm:text-[12px]">
+            Verify employee by uploading the image to check the past reports. Employees having shady track record will be warned
           </div>
         </div>
       </div>
@@ -134,21 +131,20 @@ const Landing = () => {
         <div className="xl:w-[40%] lg:w-[45%] md:w-[75%] md:mb-10 sm:mb-6 sm:w-[100%]">
           <div className="mt-4 lg:text-[50px] md:text-[45px] sm:text-[30px]">
             <span className=" font-bold bg-gradient-to-r from-teal-500 to-green-400 bg-clip-text text-transparent">
-              Code Autocomplete
+             Red Flag
             </span>{" "}
-            made easy
+
           </div>
-          <div className="xl:text-[20px] lg:text-[17px] md:text-[15px] sm:text-[12px]">
-            Code autocomplete in 20+ programming languages including Python,
-            JavaScript, TypeScript, Go, and Ruby
+          <div className="xl:text-[20px] font-thin  lg:text-[17px] md:text-[15px] sm:text-[12px]">
+            If any past employee has done anything wrong like robbery, etc then the store owner has an option to flag the employee so that other people can be cautious and report the offender to the authorities
           </div>
         </div>
 
         <div>
           <Image
             data-aos="fade-zoom-in"
-            className="rounded-2xl shadow bg-teal-400 inline-flex drop-shadow-[0_0px_35px_rgba(85,99,238,0.7)] dark:drop-shadow-[0_0px_35px_rgba(85,99,238,0.3)]"
-            src="/assets/Defi1.png"
+            className="rounded-2xl shadow h-[85%] bg-teal-400 inline-flex drop-shadow-[0_0px_35px_rgba(85,99,238,0.7)] dark:drop-shadow-[0_0px_35px_rgba(85,99,238,0.3)]"
+            src="/assets/download.png"
             alt="Hero Img"
             width={540}
             height={540}
@@ -160,5 +156,3 @@ const Landing = () => {
 };
 
 export default Landing;
-
-

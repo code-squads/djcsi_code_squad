@@ -1,189 +1,21 @@
-import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import PropTypes from "prop-types";
-import Button from "@mui/material/Button";
-import Modal from "react-modal";
+import React from "react";
 
-function RenderDate(props) {
-  const { hasFocus, value } = props;
-  const buttonElement = React.useRef(null);
-  const rippleRef = React.useRef(null);
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const flagColor = props.value;
-
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      width: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      color: "white",
-      backgroundColor: "#394150",
-    },
-  };
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  React.useLayoutEffect(() => {
-    if (hasFocus) {
-      const input = buttonElement.current?.querySelector("input");
-      input?.focus();
-    } else if (rippleRef.current) {
-      // Only available in @mui/material v5.4.1 or later
-      rippleRef.current.stop({});
-    }
-  }, [hasFocus]);
-
-  return (
-    <>
-      {flagColor === "green" && (
-        <>
-          <button
-            className="focus:outline-none mt-2 text-white w-[8rem] bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-            onClick={() => setIsOpen(true)}
-          >
-            Safe User
-          </button>
-          {modalIsOpen && (
-            <>
-              <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-              >
-                <div className="flex justify-between">
-                  <div className="text-2xl">Safe User</div>
-                  <button onClick={closeModal} className="mx-6">
-                    {" "}
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-                <div className="my-4">
-                  {" "}
-                  The European Union’s General Data Protection Regulation
-                  (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                  common set of data rights in the European Union. It requires
-                  organizations to notify users as soon as possible of high-risk
-                  data breaches that could personally affect them.
-                </div>
-              </Modal>
-            </>
-          )}
-        </>
-      )}
-      {flagColor === "red" && (
-        <>
-          <button
-            onClick={() => setIsOpen(true)}
-            className="focus:outline-none mt-2 text-white w-[8rem] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-          >
-            Reported User
-          </button>
-          {modalIsOpen && (
-            <>
-              <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-              >
-                <div className="flex justify-between">
-                  <div className="text-2xl">Reported User</div>
-                  <button onClick={closeModal} className="mx-6">
-                    {" "}
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-                <div className="my-4">
-                  {" "}
-                  The European Union’s General Data Protection Regulation
-                  (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                  common set of data rights in the European Union. It requires
-                  organizations to notify users as soon as possible of high-risk
-                  data breaches that could personally affect them.
-                </div>
-              </Modal>
-            </>
-          )}
-        </>
-      )}
-    </>
-  );
-}
-
-RenderDate.propTypes = {
-  /**
-   * If true, the cell is the active element.
-   */
-  hasFocus: PropTypes.bool.isRequired,
-  /**
-   * The cell value.
-   * If the column has `valueGetter`, use `params.row` to directly access the fields.
-   */
-  value: PropTypes.instanceOf(Date),
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    width: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    color: "white",
+    backgroundColor: "#394150",
+  },
 };
-
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "birth",
-    headerName: "Birth Date",
-    type: "number",
-    width: 110,
-    editable: true,
-  },
-  {
-    field: "name",
-    headerName: "Name",
-    width: 160,
-  },
-  {
-    field: "Gender",
-    header: "Gender",
-    type: "number",
-  },
-  { field: "Email", header: "Email", width: 250 },
-  { field: "Aadhar", header: "Aadhar" },
-  { field: "Flag", header: "Flags", renderCell: RenderDate, width: 200 },
-];
 
 const people = [
   {
-    id: 1,
     name: "Vansh",
     birth: "23-1-2023",
     Gender: "Male",
@@ -193,7 +25,6 @@ const people = [
     Flag: "red",
   },
   {
-    id: 2,
     name: "Abhi",
     birth: "23-9-2023",
     Gender: "Male",
@@ -202,7 +33,6 @@ const people = [
     Flag: "green",
   },
   {
-    id: 3,
     name: "Bunty",
     birth: "23-2-2023",
     Gender: "Male",
@@ -211,7 +41,6 @@ const people = [
     Flag: "red",
   },
   {
-    id: 4,
     name: "Cinderela",
     birth: "23-7-2023",
     Gender: "Male",
@@ -220,7 +49,6 @@ const people = [
     Flag: "red",
   },
   {
-    id: 5,
     name: "Zen",
     birth: "23-3-2023",
     Gender: "Male",
@@ -230,24 +58,195 @@ const people = [
   },
 ];
 
-const reportedUsers = people.map((data) => data).filter((data) => data.Flag === 'red');
+const reportedUsers = people
+  .map((data) => data)
+  .filter((data) => data.Flag === "red");
 
-console.log(reportedUsers);
+const safeUsers = people
+  .map((data) => data)
+  .filter((data) => data.Flag === "green");
 
-export default function AppGrid() {
+export function RedAppGrid() {
   return (
-    <div
-      style={{ width: "100%", backgroundColor: "white" }}
-      className="h-[100vh]"
-    >
-      {reportedUsers !== undefined && (
-        <DataGrid
-          rows={reportedUsers}
-          columns={columns}
-          className="bg-[#394150]"
-          style={{ color: "white" }}
-        />
-      )}
+    <div className="dark:text-white dark:bg-dark2 text-dark3">
+      <div className="dark:text-white dark:bg-dark2 text-dark3">
+        <div className="flex flex-row items-center text-[26px] font-medium h-[70px] pl-[40px] border-b-[1px] dark:border-[#232830] border-[#DCE3EE]">
+          Recently Verified Employees
+        </div>
+        <div className="flex flex-col w-[75vw] mx-auto border-[1px] dark:border-[#232830] border-[#DCE3EE] border-collapse mt-[35px] rounded-[5px] cursor-pointer border-b-[0px]">
+          <div className="flex flex-row justify-between bg-[#F6F9FC] dark:bg-[#1F232D] border-b-[1px] border-[#DCE3EE] dark:border-[#232830] rounded-t-[5px] text-[14px] font-medium">
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Name
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Gender
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              DOB
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Aadhaar
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Pan card
+            </div>
+            <div className="flex flex-row justify-center items-center w-[20%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Verification Status
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px]">
+              Option
+            </div>
+          </div>
+
+          {reportedUsers.map((p) => {
+            return (
+              <div className="flex flex-row justify-between text-[14px] border-b-[1px] rounded-b-[5px] border-[#DCE3EE] dark:border-[#232830]">
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.name}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Gender}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.birth}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Aadhar}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Email}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[20%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Verified == "true" ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="green"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="red"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  )}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Flag === "red" && (
+                    <>
+                      <button className="focus:outline-none mt-2 text-white w-[8rem] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        Reported User
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function GreenAppGrid() {
+  return (
+    <div className="dark:text-white dark:bg-dark2 text-dark3">
+      <div className="dark:text-white dark:bg-dark2 text-dark3">
+        <div className="flex flex-row items-center text-[26px] font-medium h-[70px] pl-[40px] border-b-[1px] dark:border-[#232830] border-[#DCE3EE]">
+          Recently Verified Employees
+        </div>
+        <div className="flex flex-col w-[75vw] mx-auto border-[1px] dark:border-[#232830] border-[#DCE3EE] border-collapse mt-[35px] rounded-[5px] cursor-pointer border-b-[0px]">
+          <div className="flex flex-row justify-between bg-[#F6F9FC] dark:bg-[#1F232D] border-b-[1px] border-[#DCE3EE] dark:border-[#232830] rounded-t-[5px] text-[14px] font-medium">
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Name
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Gender
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              DOB
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Aadhaar
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Pan card
+            </div>
+            <div className="flex flex-row justify-center items-center w-[20%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">
+              Verification Status
+            </div>
+            <div className="flex flex-row justify-center items-center w-[55%] box-border py-[12px]">
+              Option
+            </div>
+          </div>
+
+          {safeUsers.map((p) => {
+            return (
+              <div className="flex flex-row justify-between text-[14px] border-b-[1px] rounded-b-[5px] border-[#DCE3EE] dark:border-[#232830]">
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.name}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Gender}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.birth}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Aadhar}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Email}
+                </div>
+                <div className="flex flex-row justify-center items-center w-[20%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="green"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                    />
+                  </svg>
+                </div>
+                <div className="flex flex-row justify-center items-center w-[55%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
+                  {p.Flag === "green" && (
+                    <>
+                      <button className="focus:outline-none mt-2 text-white w-[8rem] bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        Recommended User
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
