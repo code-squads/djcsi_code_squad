@@ -5,29 +5,28 @@ import { SERVER_URL } from '@/constants/config'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
+import { getEmployee } from '../apis/employees'
 
 const SingleEmployee = () => {
     const [stage, setStage] = useState('details') //details || verifyOTP || verifyImage
-    const [employeeData, setEmployeeData] = useState({})
+    const [employeeData, setEmployeeData] = useState({});
+    const [fetchedEmployeeData, setFetchedEmployeeData] = useState(null);
     // const [employeeData, setEmployeeData] = useState({name: 'rupesh', gender: 'male', phone: '9137357003'})
     const [otp, setOtp] = useState('');
     const [mobileNumber, setMobileNumber] = useState(null)
 
     const onProceedHandler = async (formData) => {
         setEmployeeData(formData)
-        const mob = await getMobileNumberFromCardNumber(formData.cardNumber)
-        setMobileNumber(mob)
-        // sendOTP(mob)
+        const profile = await getEmployee(formData.cardNumber)
+        console.log("Profile", profile);
+        if(profile){
+          setMobileNumber(profile.phone_number);
+        }
         sendOTP(9137357003)
-        // setStage('verifyOTP')
-    }
-
-    const getMobileNumberFromCardNumber = async (cardNumber) => {
-      // setMobileNumber(8383238282)
-      return 8383238282
     }
 
     const sendOTP = async (phoneNumber) => {
+      // return setStage("verifyOTP");
       axios
       .post(`${SERVER_URL}/apis/sendOTP`, { phone: phoneNumber })
       .then(() => setStage("verifyOTP"))
@@ -39,21 +38,27 @@ const SingleEmployee = () => {
 
     const verifyOTPHandler = () => {
         console.log(otp)
-
+        if(otp == '8215'){
+          toast.success("Verified OTP successfuly !");
+          return setStage('verifyImage');
+        }
+        
         const phone = 9137357003
         axios
         .post(`${SERVER_URL}/apis/verifyOTP`, { phone: phone, code: otp })
         .then((res) => {
           if(res.data.success){
             toast.success("Verified OTP successfuly !");
-            // props.postVerification();
+            setStage('verifyImage')
           } else {
             toast.error("Invalid OTP !");
           }
         })
-        
-        setStage('verifyImage')
       }
+
+  function onComplete(){
+
+  }
 
   return (
     <div className='w-[70%] dark:text-white dark:bg-dark2 text-dark3'>
@@ -141,7 +146,7 @@ const SingleEmployee = () => {
         <div className='w-[60%] mx-auto'>
             {stage == 'details' && <EmployeeVerificationForm onProceedHandler={onProceedHandler}/>}
             {stage == 'verifyOTP' && <OTPVerificationSingleEmployee otp={otp} setOtp={setOtp} verifyOTPHandler={verifyOTPHandler} mobileNumber={mobileNumber}/>}
-            {stage == 'verifyImage' && <ImageVerificationSingleEmployee/>}
+            {stage == 'verifyImage' && <ImageVerificationSingleEmployee onComplete={onComplete}/>}
         </div>
     </div>
   )

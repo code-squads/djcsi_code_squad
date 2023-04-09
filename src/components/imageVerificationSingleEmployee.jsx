@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import Loader from "./loader";
+import { testImage } from "../apis/employees";
 
-const ImageVerificationSingleEmployee = () => {
+const ImageVerificationSingleEmployee = ({ onComplete }) => {
   const [image, setImage] = useState(null);
-  const [value, setValue] = useState(false);
+  const [matching, setMatching] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const handleImageChange = (event) => {
+    const imageName = event.target.files[0];
+    console.log(imageName);
     setImage(URL.createObjectURL(event.target.files[0]));
+    setMatching(testImage(event.target.files[0].name))
   };
-
-  // if(loading){
-  //   return <Loader></Loader>
-  // }
 
   return (
     <div className="flex flex-col items-center">
@@ -48,7 +48,7 @@ const ImageVerificationSingleEmployee = () => {
         {image ? (
           <div>
             <div>
-              {value ? (
+              {!matching ? (
                 <div className=" border-2 border-dashed border-red-400 text-red-400 p-16 rounded-lg bg-[#F6F9FC] dark:bg-[#1F232D]">
                     Employer image did not match the identity card image
                 </div>

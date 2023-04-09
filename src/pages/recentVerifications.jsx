@@ -1,60 +1,43 @@
 import HireModal from "@/components/hireModal";
 import { Button } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { getRecentVerifications, hireEmployee } from "../apis/employees";
+import { toast } from "react-toastify";
 
 const RecentVerifications = () => {
-  // const [showModal, setShowModal] = React.useState(false);
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = React.useState(false);
+  const { profile } = useAuth();
+  const [refreshIndicator, setRefresh] = useState(Math.random());
+  const refresh = () => setRefresh(Math.random());
+  const [verifications, setVerifications] = useState([]);
   const [selectedOption, setSelectedOption] = useState()
   const [selectedEmployee, setSelectedEmployee] = useState()
 
-  const people = [
-    {
-      name: "Vansh",
-      birth: "23-1-2023",
-      Gender: "Male",
-      Email: "vansh@gmail.com",
-      Aadhar: 3310,
-      // Message will come with reports.message for red Verifiedtruegreen, it will be from recommends.
-      Verified: "true",
-    },
-    {
-      name: "Abhi",
-      birth: "23-9-2023",
-      Gender: "Male",
-      Email: "vansh@gmail.com",
-      Aadhar: 3310,
-      Verified: "false",
-    },
-    {
-      name: "Bunty",
-      birth: "23-2-2023",
-      Gender: "Male",
-      Email: "vansh@gmail.com",
-      Aadhar: 3310,
-      Verified: "true",
-    },
-    {
-      name: "Cinderela",
-      birth: "23-7-2023",
-      Gender: "Male",
-      Email: "vansh@gmail.com",
-      Aadhar: 3310,
-      Verified: "false",
-    },
-    {
-      name: "Zen",
-      birth: "23-3-2023",
-      Gender: "Male",
-      Email: "vansh@gmail.com",
-      Aadhar: 3310,
-      Verified: "true",
-    },
-  ];
+  useEffect(() => {
+    if(!profile)
+      return;
+    console.log(profile);
+    getRecentVerifications(profile.gstin)
+      .then(newVerifications => {
+        console.log(newVerifications);
+        newVerifications.forEach(verification => {
+          verification.name = verification.first_name + verification.last_name;
+        })
+        setVerifications(newVerifications);
+      })
+  }, [profile, refreshIndicator]);
 
-  const onConfirmClickHandler = () => {
+  const onConfirmClickHandler = async () => {
     setShowModal(false)
-    console.log(selectedEmployee, selectedOption)
+    const repsons = await  hireEmployee(profile.gstin, selectedEmployee._id, selectedOption)
+    .then(res => {
+      toast.success("Hired employee !");
+      refresh();
+    })
+    .catch(err => {
+      toast.error("Some error hiring the employee :/");
+    });
   }
 
   return (
@@ -69,21 +52,21 @@ const RecentVerifications = () => {
             <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Gender</div>
             <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">DOB</div>
             <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Aadhaar</div>
-            <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Pan card</div>
+            {/* <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Pan card</div> */}
             <div className="flex flex-row justify-center items-center w-[20%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Verification Status</div>
             <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px]">Option</div>
           </div>
 
-          {people.map((p) => {
+          {verifications.map((p) => {
             return (
-              <div className="flex flex-row justify-between text-[14px] border-b-[1px] rounded-b-[5px] border-[#DCE3EE] dark:border-[#232830]"> 
-                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.name}</div>
-                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.Gender}</div>
-                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.birth}</div>
-                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.Aadhar}</div>
-                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">-</div>
+              <div className="flex flex-row justify-between text-[14px]"> 
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.first_name + " " + p.last_name}</div>
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.gender}</div>
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.dob}</div>
+                <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">{p.aadhar_number}</div>
+                {/* <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">-</div> */}
                 <div className="flex flex-row justify-center items-center w-[20%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
-                  {p.Verified == 'true' ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="green" className="w-6 h-6">
+                  {p.verified ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="green" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                   </svg>
                   :
@@ -93,7 +76,7 @@ const RecentVerifications = () => {
                   }
                 </div>
                 <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
-                  {p.Verified == 'true' ? 
+                  {p.verified ? 
                     <Button className="py-[-2px]"
                       onClick={() => {setShowModal(true); setSelectedEmployee(p)}}
                     >Hire 
@@ -109,7 +92,7 @@ const RecentVerifications = () => {
             )
           })}
       </div>
-      {showModal && <HireModal showModal={showModal} setShowModal={setShowModal} setSelectedOption={setSelectedOption} onConfirmClickHandler={onConfirmClickHandler}/>}
+      {showModal && <HireModal selectedEmployee={selectedEmployee} showModal={showModal} setShowModal={setShowModal} setSelectedOption={setSelectedOption} onConfirmClickHandler={onConfirmClickHandler}/>}
     </div>
   );
 };

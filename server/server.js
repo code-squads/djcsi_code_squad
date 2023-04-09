@@ -15,6 +15,8 @@ import newEntity from './src/routes/newEntity.js';
 import auth from './src/routes/auth.js';
 import employee from './src/routes/employee.js';
 import sms from './src/routes/sms.js';
+// import face from './src/routes/face.js';
+import face from './src/routes/faceAlt.js';
 
 // Setting the MongoDB
 mongoose.set('strictQuery', true);
