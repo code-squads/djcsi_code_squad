@@ -10,17 +10,14 @@ const TagList = ({emailMsg}) => {
     setInputValue(e.target.value);
   };
 
-  const handleInputKeyDown = (e) => {
+const handleInputKeyDown = (e) => {
     if (e.key === 'Enter' && inputValue !== '') {
       setTags([...tags, inputValue]);
       setInputValue('');
+      console.log(tags);
     } else if (e.key === 'Backspace' && inputValue === '') {
       setTags(tags.slice(0, -1));
     }
-  };
-
-  const handleRemoveTag = (tagIndex) => {
-    setTags(tags.filter((_, index) => index !== tagIndex));
   };
 
   const sendUrl = () => {
