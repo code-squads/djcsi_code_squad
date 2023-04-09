@@ -69,7 +69,8 @@ const Landing = () => {
         <Image
           data-aos="fade-zoom-in"
           className=" drop-shadow-[0_0px_35px_rgba(85,99,238,0.7)] dark:drop-shadow-[0_0px_35px_rgba(85,99,238,0.3)] rounded-2xl shadow bg-teal-400 inline-flex"
-          src="/assets/Defi1.png"
+          // src="/assets/LandImg.jpeg"
+          src="/assets/hero.jpeg"
           alt="Hero Img"
           width={850}
           height={720}
@@ -149,7 +150,6 @@ const Landing = () => {
             width={540}
             height={540}
           />
-
         </div>
       </div>
     </div>
