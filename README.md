@@ -1,6 +1,6 @@
 <div align="center">
    <h1> HrSpace </h1>
-  <h3> A Decentralised Platform to express your opinions </h3>
+
   Built with ❤️ for Code Shastra 9.0
 </div>
 
@@ -16,8 +16,6 @@
 - Developing an innovative solution to streamline the HR verification process for restaurants and cafes.
 - Restaurants and cafes face a significant challenge in verifying their employees' credentials post-employment, leading to potential security and financial risks. This is due to a lack of a common portal for all verifications and a shortage of resources, including time and money, to deploy the same.
 To address this issue, we need an innovative solution that leverages technology and creative thinking. The solution should aim to streamline the HR verification process for restaurants and cafes by developing a portal/app/website that allows the restaurant owner/HR to upload facial images of the employee along with their Aadhaar and PAN Card to run a verification of the same.
-
-## Our Solution
 
 
 ## Tech Stack
@@ -54,8 +52,7 @@ To address this issue, we need an innovative solution that leverages technology 
 
 <div align="center">
    <h1> Thank You </h1>
-  <h3> A Decentralised Platform to express your opinions </h3>
-  Built with ❤️ for Code Shastra 9.0
+  <img alt="code" src="https://github.com/code-squads/djcsi_code_squad/blob/master/public/assets/codeshashtra.png"
 </div>
 
 
