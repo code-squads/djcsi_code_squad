@@ -41,7 +41,7 @@ app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
 
 
 // Preparing routers
-app.use(newEntity, auth, sms, employee, face);
+app.use(newEntity, auth, sms, employee);
 
 
 
