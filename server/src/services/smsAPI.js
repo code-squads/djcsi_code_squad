@@ -2,7 +2,7 @@ const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
 const AUTH_TOKEN = process.env.AUTH_TOKEN;
 const SERVICE_ID = process.env.SERVICE_ID;
 import sgMail from "@sendgrid/mail";
-import Email from "../models/EmailSchema";
+import Email from "../models/EmailSchema.js";
 import twilio from 'twilio';
 const twilioClient = twilio(TWILIO_ACCOUNT_SID, AUTH_TOKEN);
 
