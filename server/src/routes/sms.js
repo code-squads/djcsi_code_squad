@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { sendOTP, verifyOTP } from "../services/smsAPI.js";
+import { sendOTP, verifyOTP, sendMail } from "../services/smsAPI.js";
 
 // OTP routes
 router.post("/apis/sendOTP", (req, res) => {
@@ -16,11 +16,11 @@ router.post("/apis/sendOTP", (req, res) => {
       data,
     });
 
-    sendOTP(phone)
+  sendOTP(phone)
     .then(() => {
-        res.status(200).send({
-            message: `OTP sent to ${phone}`
-        })
+      res.status(200).send({
+        message: `OTP sent to ${phone}`,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -32,6 +32,9 @@ router.post("/apis/sendOTP", (req, res) => {
       });
     });
 });
+
+// sendGrid router
+router.post("/apis/sendEmail", sendMail);
 
 // Verify Endpoint
 router.post("/apis/verifyOTP", (req, res) => {
@@ -74,6 +77,5 @@ router.post("/apis/verifyOTP", (req, res) => {
       });
     });
 });
-
 
 export default router;

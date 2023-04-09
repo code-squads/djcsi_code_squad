@@ -1,3 +1,4 @@
+import HireModal from "@/components/hireModal";
 import { Button } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
@@ -8,6 +9,8 @@ const RecentVerifications = () => {
   const [showModal, setShowModal] = React.useState(false);
   const { profile } = useAuth();
   const [verifications, setVerifications] = useState([]);
+  const [selectedOption, setSelectedOption] = useState()
+  const [selectedEmployee, setSelectedEmployee] = useState()
 
   useEffect(() => {
     if(!profile)
@@ -31,7 +34,10 @@ const RecentVerifications = () => {
     toast.success("Hired employee !");
   }
 
-  console.log(showModal);
+  const onConfirmClickHandler = () => {
+    setShowModal(false)
+    console.log(selectedEmployee, selectedOption)
+  }
 
   return (
     <div className='relative w-[70%] dark:text-white dark:bg-dark2 text-dark3'>
@@ -39,7 +45,7 @@ const RecentVerifications = () => {
           Recently Verified Employees
       </div>
 
-      <div className="flex flex-col w-[95%]  mx-auto border-[1px] dark:border-[#232830] border-[#DCE3EE] border-collapse mt-[35px] rounded-t-[5px] cursor-pointer">
+      <div className="flex flex-col w-[95%]  mx-auto border-[1px] dark:border-[#232830] border-[#DCE3EE] border-collapse mt-[35px] rounded-[5px] cursor-pointer border-b-[0px]">
           <div className="flex flex-row justify-between bg-[#F6F9FC] dark:bg-[#1F232D] border-b-[1px] border-[#DCE3EE] dark:border-[#232830] rounded-t-[5px] text-[14px] font-medium">
             <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Name</div>
             <div className="flex flex-row justify-center items-center w-[15%] box-border py-[12px] border-r-[1px] dark:border-[#232830]">Gender</div>
@@ -69,9 +75,10 @@ const RecentVerifications = () => {
                   }
                 </div>
                 <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
-                  {p.verified ? 
-                    <Button className="py-[-2px]" onClick={() => hire(p._id)}>
-                      Hire 
+                  {p.Verified == 'true' ? 
+                    <Button className="py-[-2px]"
+                      onClick={() => {setShowModal(true); setSelectedEmployee(p)}}
+                    >Hire 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 ml-[5px]">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
@@ -84,6 +91,7 @@ const RecentVerifications = () => {
             )
           })}
       </div>
+      {showModal && <HireModal showModal={showModal} setShowModal={setShowModal} setSelectedOption={setSelectedOption} onConfirmClickHandler={onConfirmClickHandler}/>}
     </div>
   );
 };
