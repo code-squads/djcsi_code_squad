@@ -16,8 +16,8 @@ export const getPastEmployees = async (gstin) => {
   const response = await axios.get(`${SERVER_URL}/api/pastEmployees?gstin=${gstin}`);
   return response.data.employees;
 }
-export const hireEmployee = async (employee_id, role) => {
-  if(!employee_id || !role)  return false;
-  const response = await axios.post(`${SERVER_URL}/api/hireEmployee`, { id: employee_id, role });
+export const hireEmployee = async (employer_gstin, employee_id, role) => {
+  if(!employee_id || !role || !employer_gstin)  return false;
+  const response = await axios.post(`${SERVER_URL}/api/hireEmployee`, { employer_gstin, id: employee_id, role });
   return response.data;
 }

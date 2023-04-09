@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 const RecentVerifications = () => {
   const [showModal, setShowModal] = React.useState(false);
   const { profile } = useAuth();
+  const [refreshIndicator, setRefresh] = useState(Math.random());
+  const refresh = () => setRefresh(Math.random());
   const [verifications, setVerifications] = useState([]);
   const [selectedOption, setSelectedOption] = useState()
   const [selectedEmployee, setSelectedEmployee] = useState()
@@ -24,19 +26,18 @@ const RecentVerifications = () => {
         })
         setVerifications(newVerifications);
       })
-  }, [profile]);
+  }, [profile, refreshIndicator]);
 
-  async function hire(id){
-    const role = "chef";
-    const repsons = await  hireEmployee(id, role).catch(err => {
-      toast.error("Some error hiring the employee :/");
-    })
-    toast.success("Hired employee !");
-  }
-
-  const onConfirmClickHandler = () => {
+  const onConfirmClickHandler = async () => {
     setShowModal(false)
-    console.log(selectedEmployee, selectedOption)
+    const repsons = await  hireEmployee(profile.gstin, selectedEmployee._id, selectedOption)
+    .then(res => {
+      toast.success("Hired employee !");
+      refresh();
+    })
+    .catch(err => {
+      toast.error("Some error hiring the employee :/");
+    });
   }
 
   return (
@@ -75,7 +76,7 @@ const RecentVerifications = () => {
                   }
                 </div>
                 <div className="flex flex-row justify-center items-center w-[15%] box-border py-[10px] border-r-[1px] dark:border-[#232830]">
-                  {p.Verified == 'true' ? 
+                  {p.verified ? 
                     <Button className="py-[-2px]"
                       onClick={() => {setShowModal(true); setSelectedEmployee(p)}}
                     >Hire 
@@ -91,7 +92,7 @@ const RecentVerifications = () => {
             )
           })}
       </div>
-      {showModal && <HireModal showModal={showModal} setShowModal={setShowModal} setSelectedOption={setSelectedOption} onConfirmClickHandler={onConfirmClickHandler}/>}
+      {showModal && <HireModal selectedEmployee={selectedEmployee} showModal={showModal} setShowModal={setShowModal} setSelectedOption={setSelectedOption} onConfirmClickHandler={onConfirmClickHandler}/>}
     </div>
   );
 };
